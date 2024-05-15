@@ -1,0 +1,82 @@
+<html>
+<head>
+    <style>
+    body {
+        background: #3f5441;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        flex-direction: column;
+    }
+    h1 {
+        text-align: center;
+        color: #f5f0f0;
+        margin-bottom: 20px;
+    }
+    #input, #button {
+        display: block;
+        margin: 10px auto;
+    }
+    #output {
+        width: 500px;
+        height: 500px;
+        background: #c3e4bd;
+        border: 10px solid #f5f0f0;
+        border-radius: 5px;
+        padding: 15px;
+        font-family: monospace;
+        white-space: pre;
+        color: #333;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+    }
+    </style>   
+</head>
+<body>
+    <h1>Gissa på ett nummer mellan 1 och 100</h1>
+    <input id="input" type="number">
+    <button id="button">GISSA</button>
+    <div id="output"></div>
+    <script>
+        // VARIABLER //
+        const minNum = 1;
+        const maxNum = 100;
+        const answer = Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
+
+        let attempts = 0;
+        let running = true;
+
+        let button = document.getElementById("button");
+        let output = document.getElementById("output");
+
+        // PROGRAMMET //
+        button.onclick = function(){
+            if (running) {
+                let guess = document.getElementById("input").value;
+                guess = Number(guess);
+
+                if (isNaN(guess)) {
+                    output.textContent = "Fyll i ett godkänt nummer";
+                } else if (guess < minNum || guess > maxNum) {
+                    output.textContent = "Fyll i ett godkänt nummer";
+                } else {
+                    attempts++;
+                    if (guess < answer) {
+                        output.textContent = "FÖR LÅGT! FÖRSÖK IGEN!";
+                    } else if (guess > answer) {
+                        output.textContent = "FÖR HÖGT! FÖRSÖK IGEN!";
+                    } else {
+                        output.textContent = `RÄTT! Svaret var ${answer}. Det tog dig ${attempts} försök!`;
+                        running = false;
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
